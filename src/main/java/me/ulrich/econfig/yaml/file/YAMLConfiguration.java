@@ -1,7 +1,6 @@
 package me.ulrich.econfig.yaml.file;
 
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.error.YAMLException;
 
 import me.ulrich.econfig.yaml.EnumConfigurationConstructor;
 import me.ulrich.econfig.yaml.EnumConfigurationDumperOptions;
@@ -42,9 +41,9 @@ public class YAMLConfiguration extends MemorySection implements Configuration {
         LinkedHashMap<String, Object> input = null;
         try {
             input = yaml.load(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
-        } catch (YAMLException | ClassCastException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {
+			e.printStackTrace();
+		}
 
         if (input != null) {
             convertMapsToSections(input, this);
