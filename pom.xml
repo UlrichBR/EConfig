@@ -57,21 +57,20 @@
 	</build>
 
 	<repositories>
-		<!-- Spigot -->
-		<repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-		</repository>
+
 	</repositories>
 
 	<dependencies>
-		<!--Spigot -->
-		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot-api</artifactId>
-			<version>1.18.2-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+<!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+<dependency>
+    <groupId>org.yaml</groupId>
+    <artifactId>snakeyaml</artifactId>
+    <version>1.33</version>
+    <scope>compile</scope>
+</dependency>
+
+
+
 	</dependencies>
 
 </project>
