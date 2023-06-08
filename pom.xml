@@ -32,6 +32,15 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
+							<relocations>
+								<relocation>
+									<pattern>org.yaml.snakeyaml</pattern>
+									<shadedPattern>me.ulrich.econfig.library</shadedPattern> <!-- Replace package here here -->
+								</relocation>
+
+
+
+							</relocations>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>me.ulrich.econfig.EnumConfiguration</mainClass>
