@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.ulrich.econfig</groupId>
   <artifactId>EnumConfiguration</artifactId>
-  <version>2.2</version>
+  <version>2.3</version>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -37,9 +37,6 @@
 									<pattern>org.yaml.snakeyaml</pattern>
 									<shadedPattern>me.ulrich.econfig.library</shadedPattern> <!-- Replace package here here -->
 								</relocation>
-
-
-
 							</relocations>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
@@ -75,7 +72,6 @@
     <groupId>org.yaml</groupId>
     <artifactId>snakeyaml</artifactId>
     <version>1.33</version>
-    <scope>provided</scope>
 </dependency>
 
 
