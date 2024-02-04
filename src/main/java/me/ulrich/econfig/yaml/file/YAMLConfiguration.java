@@ -12,9 +12,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -42,6 +46,7 @@ public class YAMLConfiguration extends MemorySection implements Configuration {
         try {
             input = yaml.load(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
         } catch (Exception e) {
+        	tryCopyFileUsingStream(file, new File(file.getPath()+"_backup_"+(new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss")).format(Calendar.getInstance().getTime())));
 			e.printStackTrace();
 		}
 
@@ -49,6 +54,25 @@ public class YAMLConfiguration extends MemorySection implements Configuration {
             convertMapsToSections(input, this);
         }
     }
+    
+    
+    private void tryCopyFileUsingStream(File source, File dest) throws IOException {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } finally {
+            is.close();
+            os.close();
+        }
+    }
+    
     public File getFile() {
     	return file;
     }
@@ -66,7 +90,9 @@ public class YAMLConfiguration extends MemorySection implements Configuration {
                 } else {
                     section.set(key, value);
                 }
-        	} catch (Exception e) {}
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
         }
     }
 
