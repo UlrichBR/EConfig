@@ -8,13 +8,24 @@ import org.yaml.snakeyaml.nodes.Tag;
 
 public class EnumConfigurationConstructor extends SafeConstructor {
 
-    public EnumConfigurationConstructor() {
-        // Chame o construtor de SafeConstructor que aceita LoaderOptions
-        super(new LoaderOptions());
-        
-        // Adicione o construtor personalizado para o Tag.MAP
-        this.yamlConstructors.put(Tag.MAP, new ConstructCustomObject());
-    }
+	public EnumConfigurationConstructor() {
+	    super(setupOptions());
+	    this.yamlConstructors.put(Tag.MAP, new ConstructCustomObject());
+	}
+
+	private static LoaderOptions setupOptions() {
+	    LoaderOptions options = new LoaderOptions();
+	    // Permitir apenas tipos primitivos e estruturas básicas do YAML
+	    options.setTagInspector(tag -> 
+	        tag.equals(Tag.MAP) || 
+	        tag.equals(Tag.STR) || 
+	        tag.equals(Tag.INT) || 
+	        tag.equals(Tag.FLOAT) || // Para valores como 10.5
+	        tag.equals(Tag.BOOL) ||  // Para true/false
+	        tag.equals(Tag.SEQ)      // Para listas []
+	    ); 
+	    return options;
+	}
 
     private class ConstructCustomObject extends ConstructYamlMap {
         @Override
